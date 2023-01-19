@@ -228,7 +228,8 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "Test Examples (Postman Docs)\n\n[https://learning.getpostman.com/docs/postman/scripts/test_examples/](https://learning.getpostman.com/docs/postman/scripts/test_examples/)"
 			},
 			"response": []
 		},
@@ -500,7 +501,8 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "1. Официальная дока Chai.js\n    \n\n[https://www.chaijs.com/api/bdd/](https://www.chaijs.com/api/bdd/)"
 			},
 			"response": []
 		},
@@ -512,8 +514,16 @@
 					"script": {
 						"exec": [
 							"// https://www.chaijs.com/api/assert/\r",
+							"const assert = require('assert');\r",
 							"\r",
-							""
+							"pm.test(\"Тест через assert.ok\", function () {\r",
+							"    assert.ok(pm.response.code === 200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    assert.isOk('everything', 'everything is ok');\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -548,7 +558,8 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "[https://www.chaijs.com/api/assert/](https://www.chaijs.com/api/assert/)\n\nPostman не поддерживает asserts из chai.js.\n\nНужно брать asserts отсюда: [https://nodejs.org/api/assert.html](https://nodejs.org/api/assert.html)"
 			},
 			"response": []
 		},
@@ -658,7 +669,56 @@
 							"value": "1"
 						}
 					]
-				}
+				},
+				"description": "Node.js — assert тесты\n\n[https://nodejs.org/api/assert.html](https://nodejs.org/api/assert.html)"
+			},
+			"response": []
+		},
+		{
+			"name": "hw_1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "KxPQSiwEDWqn0URwmuoEF8DE",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "n0root@mail.ru",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fields\": {\r\n    \"project\":\r\n    {\r\n      \"key\": \"TEST\"\r\n    },\r\n    \"summary\": \"Мой первый таск добавленный через API\",\r\n    \"issuetype\": {\r\n      \"name\": \"Task\"\r\n    }\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://anna78.atlassian.net/rest/api/3/issue",
+					"protocol": "https",
+					"host": [
+						"anna78",
+						"atlassian",
+						"net"
+					],
+					"path": [
+						"rest",
+						"api",
+						"3",
+						"issue"
+					]
+				},
+				"description": "Этот запрос на создание Issue в Atlassian Jira через Postman.\n\nСсылки:\n\n[https://anna78.atlassian.net/jira/software/projects/TEST/boards/1](https://anna78.atlassian.net/jira/software/projects/TEST/boards/1)\n\n[https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-post](https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-post)"
 			},
 			"response": []
 		}
