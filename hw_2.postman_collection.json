@@ -1,0 +1,666 @@
+{
+	"info": {
+		"_postman_id": "f0ca9b30-7807-42fd-9fca-54aff3fad351",
+		"name": "hw_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25203403"
+	},
+	"item": [
+		{
+			"name": "Сниппеты в постмане",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// статус код является 200\r",
+							"// pass\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// fail\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});\r",
+							"\r",
+							"// наш ожидаемый статус код один из списка [201, 404, 200, 202]\r",
+							"// pass\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 404, 200, 202]);\r",
+							"});\r",
+							"\r",
+							"// fail\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 404, 202]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//  проверка что помимо статус отправляется еще какое-то сообщение\r",
+							"//  у нас это - 200 OK\r",
+							"// fail (т.к сообщение не Created)\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"\r",
+							"// pass\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"\r",
+							"//pass\r",
+							"pm.test(\"Status code name has string\", function () {\r",
+							"    pm.response.to.have.status('OK');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "users.bugred.ru/tasks/rest/doregister?email=test_demo_1@gmail.com&name=Демо 1&password=1",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_demo_1@gmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Демо 1"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Examples",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test Examples (Postman Docs) — https://learning.getpostman.com/docs/postman/scripts/test_examples/\r",
+							"\r",
+							"pm.test(\"to.include для статус-кода не работает\", function () {\r",
+							"    pm.expect(pm.response.code).to.include(\"200\");\r",
+							"});\r",
+							"\r",
+							"// pm.expect(pm.response.code).to.eql \r",
+							"// можно применить когда надо что-то сравнить\r",
+							"// сравним статус код\r",
+							"\r",
+							"pm.test(\"Tecт через to.eql fail (строка  != чиcло) \", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(\"200\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tecт через to.eql pass (чиcло  == чиcло) \", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"var status_code = 400;\r",
+							"\r",
+							"pm.test(\"Tecт через to.eql fail (чиcло 200  != чиcло 400) \", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(status_code);\r",
+							"});\r",
+							"\r",
+							"// pm.response.code - что мы можем сравнить это можно узнать с помощью консоли\r",
+							"console.log(pm.response.code)\r",
+							"console.log(status_code)\r",
+							"\r",
+							"//response time is less than 200ms\r",
+							"// мы ожидаем что что-то будет меньше чем 200\r",
+							"\r",
+							"pm.test(\"code меньше чем 300 - ожидаем pass\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							"// тест на граничные значения\r",
+							"pm.test(\"code 200 меньше чем 200 - fail\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"code 200 больше чем 100 - pass\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.above(100);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"code 200 больше чем 200 - fail\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.above(200);\r",
+							"});\r",
+							"\r",
+							"// Postman Sandbox API reference — https://learning.getpostman.com/docs/postman/scripts/postman_sandbox_api_reference/\r",
+							"\r",
+							"// pm.response.to.have.status(code:Number)\r",
+							"pm.test(\"test1\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"// pm.response.to.have.status(reason:String)\r",
+							"pm.test(\"test2\", function () {\r",
+							"    pm.response.to.have.status('OK')\r",
+							"});\r",
+							"\r",
+							"console.log(pm.response)\r",
+							"// pm.response.to.have.status(key:String)\r",
+							"pm.test(\"test3\", function (){\r",
+							"    pm.response.to.have.status()\r",
+							"});\r",
+							"\r",
+							"//проверка что стутус-код начинается на 1(info)\r",
+							"pm.test(\"Status code - info\", function (){\r",
+							"    pm.response.to.be.info\r",
+							"});\r",
+							"\r",
+							"//проверка что стутус-код начинается на 2(success)\r",
+							"pm.test(\"Status code -  success\", function (){\r",
+							"    pm.response.to.be.success\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code -  ok\", function (){\r",
+							"    pm.response.to.be.ok\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "users.bugred.ru/tasks/rest/doregister?email=test_demo_1@gmail.com&name=Демо 1&password=1",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_demo_1@gmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Демо 1"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chai.js Expect / Should",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 4. Официальная дока Chai.js — https://www.chaijs.com/api/bdd/\r",
+							"\r",
+							"pm.test(\"Status code is not 400\", function () {\r",
+							"    pm.response.to.not.have.status(400);\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"Status code is not 400\", function () {\r",
+							"    pm.response.to.not.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// можно писать to.eql и to.equal \r",
+							"pm.test(\"Status code is 200 - тест через to.eql\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200  - тест через to.equal\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"Status code is 200  - тест через to.equal\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200  - тест через not.to.equal\", function () {\r",
+							"    pm.expect(pm.response.code).not.to.equal(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200  - тест через .to.deep.equal\", function () {\r",
+							"    pm.expect(pm.response.code).to.deep.equal(200);\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"Status code is 200  - тест через .to.deep.equal\", function () {\r",
+							"    pm.expect(pm.response.code).to.deep.equal(300);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200  - тест через .to.deep.equal\", function () {\r",
+							"    pm.expect(pm.response.code).to.deep.equal('200');\r",
+							"});\r",
+							"\r",
+							"// проверить тип того что вернулось в ответ\r",
+							"pm.test(\"Проверка что статус код является строкой\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Проверка что статус код является числом\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"// отрицательные тесты\r",
+							"pm.test(\"Проверка что статус код является числом\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Проверка что статус код является строкой\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.a('string');\r",
+							"});\r",
+							"\r",
+							"console.log(pm.response.code)\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be true\", function () {\r",
+							"    pm.expect(pm.response.code === 200).to.be.true;\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"pm.response.code - to be true\", function () {\r",
+							"    pm.expect(pm.response.code === 300).to.be.true;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be false\", function () {\r",
+							"    pm.expect(pm.response.code === 300).to.be.false;\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"pm.response.code - to be false\", function () {\r",
+							"    pm.expect(pm.response.code === 200).to.be.false;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be ok\", function () {\r",
+							"    pm.expect(pm.response.code === 200).to.be.ok;\r",
+							"});\r",
+							"\r",
+							"//ломаем тест\r",
+							"pm.test(\"pm.response.code - to be ok\", function () {\r",
+							"    pm.expect(pm.response.code === 500).to.be.ok;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be null\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to not be null\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"null - to be null\", function () {\r",
+							"    pm.expect(null).to.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"0 - to be null\", function () {\r",
+							"    pm.expect(0).to.be.null;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be undefined\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.undefined;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to not be undefined\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.undefined;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"test - to not be undefined\", function () {\r",
+							"    pm.expect(test).to.not.be.undefined;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"to be undefined\", function () {\r",
+							"    pm.expect(42, 'nooo why fail??').to.be.undefined;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to not be NaN\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.NaN;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"pm.response.code - to be NaN\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.NaN;\r",
+							"});\r",
+							"\r",
+							"// проверка что статус не bull и не undefined\r",
+							"\r",
+							"pm.test(\"pm.response.code - to exist\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.empty\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.empty;\r",
+							"});\r",
+							"\r",
+							"// проверим что 200 больше чем 100\r",
+							"pm.test(\"Тест через to.be.at.least(1)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.least(100);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.at.least(2)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.least(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.at.least(3)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.least(200);\r",
+							"});\r",
+							"\r",
+							"// проверим что 200 меньше чем 100\r",
+							"pm.test(\"Тест через to.be.at.most(1)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.most(100);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.at.most(2)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.most(300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.at.most(3)\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.at.most(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.within\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.within(100, 300);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.within\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.within(300, 400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через to.be.within\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.within(200, 300);\r",
+							"});\r",
+							"\r",
+							"// сравниваем 200 с регулярным выражением\r",
+							"pm.test(\"Тест через to match\", function () {\r",
+							"    pm.expect(pm.response.code).to.match(/^200/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(200,1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(100,1);\r",
+							"});\r",
+							"\r",
+							"// 201 - 1 = 200\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(201,1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(201,2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(199,2);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через .to.be.closeTo\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.closeTo(202,1);\r",
+							"});\r",
+							"\r",
+							"// 200 НЕ являеся числом или бесконечностью\r",
+							"pm.test(\"Тест через to.not.be.finite\", function () {\r",
+							"    pm.expect(pm.response.code).to.not.be.finite;\r",
+							"});\r",
+							"\r",
+							"// 200 являеся числом или бесконечностью\r",
+							"pm.test(\"Тест через to.be.finite\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.finite;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "users.bugred.ru/tasks/rest/doregister?email=test_demo_1@gmail.com&name=Демо 1&password=1",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_demo_1@gmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Демо 1"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chai.js Assert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// https://www.chaijs.com/api/assert/\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "users.bugred.ru/tasks/rest/doregister?email=test_demo_1@gmail.com&name=Демо 1&password=1",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_demo_1@gmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Демо 1"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Node.js",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Node.js — assert тесты\r",
+							"// https://nodejs.org/api/assert.html\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const assert = require('assert');\r",
+							"\r",
+							"\r",
+							"pm.test(\"Тест через assert.ok\", function () {\r",
+							"    assert.ok(pm.response.code === 200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через assert.ok\", function () {\r",
+							"    assert.ok(pm.response.code === 210);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через assert.ok\", function () {\r",
+							"    assert(pm.response.code === 210);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через assert.ok\", function () {\r",
+							"    assert(pm.response.code === 200);\r",
+							"});\r",
+							"\r",
+							"// сравнивает ОР и ФР\r",
+							"pm.test(\"Тест через deepStrictEqual\", function () {\r",
+							"    assert.deepStrictEqual(pm.response.code, 200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через deepStrictEqual\", function () {\r",
+							"    assert.deepStrictEqual(pm.response.code, 400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через deepEqual\", function () {\r",
+							"    assert.deepEqual(pm.response.code, 200);\r",
+							"});\r",
+							"\r",
+							"// разница менду deepEqual и deepStrictEqual \r",
+							"// в том что сравниваются не только значения но и типы\r",
+							"// 200 число не равно '200' строке\r",
+							"pm.test(\"Тест через deepStrictEqual приведение типов\", function () {\r",
+							"    assert.deepStrictEqual(pm.response.code, \"200\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// 200 число равно '200' строке\r",
+							"pm.test(\"Тест через deepEqual приведение типов\", function () {\r",
+							"    assert.deepEqual(pm.response.code, \"200\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Тест через equal приведение типов\", function () {\r",
+							"    assert.equal(pm.response.code, \"200\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Тест через strictEqual приведение типов\", function () {\r",
+							"    assert.strictEqual(pm.response.code, \"200\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "users.bugred.ru/tasks/rest/doregister?email=test_demo_1@gmail.com&name=Демо 1&password=1",
+					"host": [
+						"users",
+						"bugred",
+						"ru"
+					],
+					"path": [
+						"tasks",
+						"rest",
+						"doregister"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test_demo_1@gmail.com"
+						},
+						{
+							"key": "name",
+							"value": "Демо 1"
+						},
+						{
+							"key": "password",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
